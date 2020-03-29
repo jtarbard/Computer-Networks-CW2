@@ -17,6 +17,7 @@ public class Client {
 			input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			output = new PrintWriter(socket.getOutputStream(), true);
 		} catch (IOException e) {
+			System.err.println("Connection refused, is the server running?");
 			e.printStackTrace();
 		}
 
@@ -25,8 +26,12 @@ public class Client {
 		String fromServer;
 		String fromUser;
 
-		// read from server
+
 		try {
+
+			String pollItems = input.readLine();
+			System.out.println("Poll Items for Voting: "+pollItems);
+
 			fromUser = stdIn.readLine();
 			if( fromUser != null) {
 				if(!fromUser.equals("")){

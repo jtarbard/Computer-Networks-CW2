@@ -6,8 +6,9 @@ import java.util.concurrent.*;
 public class Server {
 
 	//server variables
-	ServerSocket socket = null;
+	private ServerSocket socket = null;
 	//poll variables
+	private String[] items = {"apple", "pear", "orange"};
 	private int[] votes = {0, 0, 0}; //apple, pear, orange
 
 	//todo: fix overload behaviour
@@ -21,6 +22,18 @@ public class Server {
 		//open connection port
 		try {
 			socket = new ServerSocket(7777);
+			try {
+				File logFile = new File("log.txt");
+				if (logFile.createNewFile()){
+					System.out.println("Log file: log.txt created. Logging inbound connections.");
+				}
+				else{
+					System.out.println("Log file: log.txt found. Logging inbound connections.");
+				}
+			} catch (IOException e){
+				System.err.println("Could not create log file.");
+				System.exit(-1);
+			}
 		}
 		catch (IOException e) {
 			System.err.println("Could not listen on port: 2323.");
@@ -37,6 +50,10 @@ public class Server {
 				service.submit(new handler(client));
 			}
 		}
+	}
+
+	public String[] getItems(){
+		return items;
 	}
 
 	public void setVotes(int[] newVotes){
@@ -72,23 +89,42 @@ public class Server {
 			}
 
 			//get log information
-			//TODO: log
-			InetAddress inet = socket.getInetAddress();
-			Date date = new Date();
+			FileWriter log = null;
+			try {
+				log = new FileWriter("log.txt", true);
+				InetAddress inet = socket.getInetAddress();
+				Date date = new Date();
 
-			System.out.println("\nDate " + date.toString());
-			System.out.println("Connection made from " + inet.getHostName());;
+				log.append(date.toString() + ":");
+				log.append(inet.getHostName() + ":");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			//send poll items
+			//This is a method that allows poll items to change on server side
+			String pollItems = "";
+			String[] items = getItems();
+			for(int i = 0; i < items.length; i++){
+				pollItems = pollItems.concat(items[i]);
+				if(i != items.length-1){
+					pollItems = pollItems.concat(", ");
+				}
+				else{
+					pollItems = pollItems.concat(".");
+
+				}
+			}
+			output.println(pollItems);
 
 			//initialise client input stream
 			String line = null;
 			String[] command;
-
+			outOfWhile:
 			while (true) {
 				if (input != null) {
 					//process client input
 					try {
 						line = input.readLine();
-						System.out.println("Command: "+line); //log command
 						//
 						command = line.split(" ");
 						int votesCount = 0;
@@ -108,34 +144,29 @@ public class Server {
 									//do nothing
 								} else {
 									System.err.println("Unidentifiable word '" + word + "' in command.");
-									System.exit(-1);
+									output.println("Error - '" + word + "' is not a valid poll item. Vote rejected.");
+									break outOfWhile;
 								}
 							}
 							if (votesCount >= 2) {
 								setVotes(votesBuffer);
-								int[] temp = getVotes();
-								String votes = String.format(
-										"'apple' has %d vote(s).\n" +
-												"'pear' has %d vote(s).\n" +
-												"'orange' has %d vote(s).",
-										temp[0], temp[1], temp[2]
-								);
-								output.println(votes);
-								break;
+								int[] votes = getVotes();
+								output.println("Updated Poll Count:");
+								for(int i = 0; i < items.length; i++){
+									output.println("	> '"+items[i]+"' has "+votes[i]+" votes(s).");
+								}
+								break outOfWhile;
 							} else {
 								System.err.println("Too few votes casts, must be a minimum of two.");
 								System.exit(-1);
 							}
 						} else {
-							int[] temp = getVotes();
-							String votes = String.format(
-									"'apple' has %d vote(s).\n" +
-											"'pear' has %d vote(s).\n" +
-											"'orange' has %d vote(s).",
-									temp[0], temp[1], temp[2]
-							);
-							output.println(votes);
-							break;
+							int[] votes = getVotes();
+							output.println("Poll Count:");
+							for(int i = 0; i < items.length; i++){
+								output.println("	> '"+items[i]+"' has "+votes[i]+" votes(s).");
+							}
+							break outOfWhile;
 						}
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -145,6 +176,8 @@ public class Server {
 			}
 			output.println("End of Connection");
 			try {
+				log.append(line + "\r\n");
+				log.close();
 				input.close();
 				output.close();
 				socket.close();
