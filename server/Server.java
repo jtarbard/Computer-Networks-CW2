@@ -51,7 +51,7 @@ public class Server {
 
 			//try to create a log file
 			try {
-				File logFile = new File("log.txt");
+				File logFile = new File("../log.txt");
 				if (logFile.createNewFile()){
 					System.out.println("Log file: log.txt created. Logging inbound connections.");
 				}
@@ -152,7 +152,7 @@ public class Server {
 			//add connection to log
 			FileWriter log = null;
 			try {
-				log = new FileWriter("log.txt", true);
+				log = new FileWriter("../log.txt", true);
 				InetAddress inet = socket.getInetAddress();
 				Date date = new Date();
 
