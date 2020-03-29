@@ -116,7 +116,7 @@ public class Server {
 	 * Handler Class -
 	 * Handles the inbound client request: updating poll and/or sending poll status to client.
 	 */
-	class Handler extends Thread {
+	private class Handler extends Thread {
 
 		//client socket variable
 		private Socket socket;
