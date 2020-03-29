@@ -5,6 +5,8 @@ import java.util.concurrent.*;
 
 /**
  * Server Class -
+ * Creates a server that hosts a poll, with poll items given at the commandline, and
+ * accepts incoming client connections on port 7777 for casted votes.
  */
 //todo: fix overload behaviour
 public class Server {
@@ -109,7 +111,7 @@ public class Server {
 
 	/**
 	 * Handler Class -
-	 *
+	 * Handles the inbound client request: updating poll and/or sending poll status to client.
 	 */
 	class Handler extends Thread {
 
@@ -126,8 +128,10 @@ public class Server {
 		}
 
 		/**
-		 * run method -
-		 *
+		 * run Method -
+		 * Creates input/output streams for the client. Writes client information to the
+		 * log file. Sends poll information to the client. Processes and logs client request
+		 * either adding client votes to the poll or sending the poll to the client.
 		 */
 		public void run() {
 
@@ -200,27 +204,34 @@ public class Server {
 										validOption = true;
 									}
 								}
+
 								//if option invalid return error
 								if(!validOption){
 									output.println("Error - '"+word+"' is not an item. No vote made.");
 									break badOption;
 								}
 							}
+
+							//update vote count
 							setVotes(newVotes);
 						}
+
+						//print poll status
 						int[] votes = getVotes();
 						output.println("Poll Count:");
 						for (int i = 0; i < votes.length; i++) {
 							output.println("'" + items[i] + "' has " + votes[i] + " votes(s)."); //print items vote count
 						}
 						break;
+
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				}
 			}
 
-			output.println("End of Connection."); //send end connection signal
+			//send end connection signal
+			output.println("End of Connection.");
 
 			//try to close log, input/output instances and client socket
 			try {
