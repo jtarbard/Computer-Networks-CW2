@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="eb356665-fe63-4a6f-b8b2-6b303eb0191c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="eb356665-fe63-4a6f-b8b2-6b303eb0191c" name="Default Changelist" comment="Added base client code, single connection works.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Coursework2/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Coursework2/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Coursework2/handler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Coursework2/handler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Coursework2/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Coursework2/Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Coursework2/handler.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,7 +36,7 @@
     <property name="settings.editor.selected.configurable" value="project.propCompiler" />
   </component>
   <component name="RunManager" selected="Application.Client">
-    <configuration name="Client" type="Application" factoryName="Application">
+    <configuration name="Client" type="Application" factoryName="Application" singleton="false">
       <option name="MAIN_CLASS_NAME" value="Client" />
       <module name="Coursework2" />
       <method v="2">
@@ -69,66 +69,86 @@
       <workItem from="1585337902300" duration="4909000" />
       <workItem from="1585435607797" duration="1292000" />
       <workItem from="1585436980854" duration="604000" />
-      <workItem from="1585437660058" duration="4423000" />
+      <workItem from="1585437660058" duration="10883000" />
     </task>
+    <task id="LOCAL-00001" summary="Added base client code, single connection works.">
+      <created>1585444115084</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1585444115084</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added base client code, single connection works." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added base client code, single connection works." />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="694" y="109" width="1162" height="825" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585443491098">
+    <state x="694" y="109" width="1162" height="825" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585444250013">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state x="694" y="109" width="1162" height="825" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.35.1920.1003@0.35.1920.1003" timestamp="1585443491098" />
+    <state x="694" y="109" width="1162" height="825" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.35.1920.1003@0.35.1920.1003" timestamp="1585444250013" />
+    <state x="721" y="180" width="468" height="719" key="#com.intellij.ide.util.MemberChooser" timestamp="1585444856529">
+      <screen x="0" y="35" width="1920" height="1003" />
+    </state>
+    <state x="721" y="180" width="468" height="719" key="#com.intellij.ide.util.MemberChooser/0.35.1920.1003@0.35.1920.1003" timestamp="1585444856529" />
     <state x="1006" y="343" width="656" height="520" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1585443489807">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
     <state x="1006" y="343" width="656" height="520" key="#com.intellij.ide.util.TreeClassChooserDialog/0.35.1920.1003@0.35.1920.1003" timestamp="1585443489807" />
-    <state x="866" y="35" width="1044" height="1003" key="CommitChangelistDialog2" timestamp="1585444072058">
+    <state x="866" y="35" width="1044" height="1003" key="CommitChangelistDialog2" timestamp="1585450350667">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state x="866" y="35" width="1044" height="1003" key="CommitChangelistDialog2/0.35.1920.1003@0.35.1920.1003" timestamp="1585444072058" />
+    <state x="866" y="35" width="1044" height="1003" key="CommitChangelistDialog2/0.35.1920.1003@0.35.1920.1003" timestamp="1585450350667" />
     <state x="685" y="237" width="530" height="605" key="FileChooserDialogImpl" timestamp="1585436719774">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
     <state x="685" y="237" width="530" height="605" key="FileChooserDialogImpl/0.35.1920.1003@0.35.1920.1003" timestamp="1585436719774" />
-    <state width="1862" height="304" key="GridCell.Tab.0.bottom" timestamp="1585444107781">
+    <state width="1010" height="304" key="GridCell.Tab.0.bottom" timestamp="1585450276186">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state width="1862" height="304" key="GridCell.Tab.0.bottom/0.35.1920.1003@0.35.1920.1003" timestamp="1585444107781" />
-    <state width="1862" height="304" key="GridCell.Tab.0.center" timestamp="1585444107781">
+    <state width="1010" height="304" key="GridCell.Tab.0.bottom/0.35.1920.1003@0.35.1920.1003" timestamp="1585450276186" />
+    <state width="1010" height="304" key="GridCell.Tab.0.center" timestamp="1585450276185">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state width="1862" height="304" key="GridCell.Tab.0.center/0.35.1920.1003@0.35.1920.1003" timestamp="1585444107781" />
-    <state width="1862" height="304" key="GridCell.Tab.0.left" timestamp="1585444107780">
+    <state width="1010" height="304" key="GridCell.Tab.0.center/0.35.1920.1003@0.35.1920.1003" timestamp="1585450276185" />
+    <state width="1010" height="304" key="GridCell.Tab.0.left" timestamp="1585450276184">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state width="1862" height="304" key="GridCell.Tab.0.left/0.35.1920.1003@0.35.1920.1003" timestamp="1585444107780" />
-    <state width="1862" height="304" key="GridCell.Tab.0.right" timestamp="1585444107781">
+    <state width="1010" height="304" key="GridCell.Tab.0.left/0.35.1920.1003@0.35.1920.1003" timestamp="1585450276184" />
+    <state width="1010" height="304" key="GridCell.Tab.0.right" timestamp="1585450276186">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state width="1862" height="304" key="GridCell.Tab.0.right/0.35.1920.1003@0.35.1920.1003" timestamp="1585444107781" />
-    <state width="1862" height="304" key="GridCell.Tab.1.bottom" timestamp="1585444107784">
+    <state width="1010" height="304" key="GridCell.Tab.0.right/0.35.1920.1003@0.35.1920.1003" timestamp="1585450276186" />
+    <state width="1010" height="304" key="GridCell.Tab.1.bottom" timestamp="1585450276188">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state width="1862" height="304" key="GridCell.Tab.1.bottom/0.35.1920.1003@0.35.1920.1003" timestamp="1585444107784" />
-    <state width="1862" height="304" key="GridCell.Tab.1.center" timestamp="1585444107782">
+    <state width="1010" height="304" key="GridCell.Tab.1.bottom/0.35.1920.1003@0.35.1920.1003" timestamp="1585450276188" />
+    <state width="1010" height="304" key="GridCell.Tab.1.center" timestamp="1585450276187">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state width="1862" height="304" key="GridCell.Tab.1.center/0.35.1920.1003@0.35.1920.1003" timestamp="1585444107782" />
-    <state width="1862" height="304" key="GridCell.Tab.1.left" timestamp="1585444107782">
+    <state width="1010" height="304" key="GridCell.Tab.1.center/0.35.1920.1003@0.35.1920.1003" timestamp="1585450276187" />
+    <state width="1010" height="304" key="GridCell.Tab.1.left" timestamp="1585450276187">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state width="1862" height="304" key="GridCell.Tab.1.left/0.35.1920.1003@0.35.1920.1003" timestamp="1585444107782" />
-    <state width="1862" height="304" key="GridCell.Tab.1.right" timestamp="1585444107783">
+    <state width="1010" height="304" key="GridCell.Tab.1.left/0.35.1920.1003@0.35.1920.1003" timestamp="1585450276187" />
+    <state width="1010" height="304" key="GridCell.Tab.1.right" timestamp="1585450276188">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state width="1862" height="304" key="GridCell.Tab.1.right/0.35.1920.1003@0.35.1920.1003" timestamp="1585444107783" />
+    <state width="1010" height="304" key="GridCell.Tab.1.right/0.35.1920.1003@0.35.1920.1003" timestamp="1585450276188" />
     <state x="333" y="84" width="1254" height="912" key="SettingsEditor" timestamp="1585437531104">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
     <state x="333" y="84" width="1254" height="912" key="SettingsEditor/0.35.1920.1003@0.35.1920.1003" timestamp="1585437531104" />
+    <state x="455" y="209" width="1000" height="661" key="Vcs.Push.Dialog.v2" timestamp="1585444117252">
+      <screen x="0" y="35" width="1920" height="1003" />
+    </state>
+    <state x="455" y="209" width="1000" height="661" key="Vcs.Push.Dialog.v2/0.35.1920.1003@0.35.1920.1003" timestamp="1585444117252" />
     <state x="134" y="35" width="1642" height="1003" key="new project wizard" timestamp="1585436896950">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>

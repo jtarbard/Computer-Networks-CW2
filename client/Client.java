@@ -5,20 +5,20 @@ import java.util.*;
 public class Client {
 	public static void main( String[] args ) {
 
-		Socket kkSocket = null;
+		Socket socket = null;
 		PrintWriter socketOutput = null;
 		BufferedReader socketInput = null;
 
 		try {
 
 			// try and create the socket
-			kkSocket = new Socket("localhost", 2323);
+			socket = new Socket("localhost", 7777);
 
 			// chain a writing stream
-			socketOutput = new PrintWriter(kkSocket.getOutputStream(), true);
+			socketOutput = new PrintWriter(socket.getOutputStream(), true);
 
 			// chain a reading stream
-			socketInput = new BufferedReader(new InputStreamReader(kkSocket.getInputStream()));
+			socketInput = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -43,7 +43,7 @@ public class Client {
 
 			socketOutput.close();
 			stdIn.close();
-			kkSocket.close();
+			socket.close();
 		}
 		catch (IOException e) {
 			System.err.println("I/O exception during execution\n");
