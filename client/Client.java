@@ -19,8 +19,6 @@ public class Client {
 
 			// chain a reading stream
 			socketInput = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -32,15 +30,23 @@ public class Client {
 
 		// read from server
 		try {
-			while ((fromUser = stdIn.readLine()) != null) {
-
-				// echo client string
-				System.out.println("Client: " + fromUser);
+			fromUser = stdIn.readLine();
+			if( fromUser != null) {
 				// write to server
 				assert socketOutput != null;
 				socketOutput.println(fromUser);
 			}
 
+			while ((fromServer = socketInput.readLine()) != null) {
+
+				// echo server string
+				System.out.println("Server: " + fromServer);
+				if (fromServer.equals("Connection Terminated.")) {
+					break;
+				}
+			}
+
+			assert socketOutput != null;
 			socketOutput.close();
 			stdIn.close();
 			socket.close();

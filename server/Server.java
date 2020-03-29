@@ -1,5 +1,6 @@
 import java.net.*;
 import java.io.*;
+import java.util.Date;
 import java.util.concurrent.*;
 
 public class Server {
@@ -33,7 +34,7 @@ public class Server {
 		while( true ) {
 			synchronized (socket){
 				Socket client = socket.accept();
-				service.submit(new handler(socket, client));
+				service.submit(new handler(client));
 			}
 		}
 	}
@@ -42,7 +43,7 @@ public class Server {
 		//todo: remove print
 		System.out.println("'apples' " +newVotes[0]+", 'pears' "+newVotes[1]+", 'oranges' "+newVotes[2]);
 		for(int i = 0; i < votes.length; i++){
-			votes[i] =+ newVotes[i];
+			votes[i] = votes[i] + newVotes[i];
 		}
 	}
 
@@ -52,36 +53,45 @@ public class Server {
 		return votes;
 	}
 
-	class handler implements Runnable {
+	class handler extends Thread {
 
-		//client input variable
-		PrintWriter socket = null;
-		InputStream input = null;
+		//client socket variable
+		private Socket socket = null;
 
-		public handler(ServerSocket server, Socket client) {
+		public handler(Socket client) {
 			//get and store client input
-			try {
-				socket = new PrintWriter(client.getOutputStream(), true);
-				input = client.getInputStream();
-
-			} catch (IOException e) {
-				System.err.println("Could not get client input stream.");
-				System.exit(-1);
-			}
+			this.socket = client;
 		}
 
 		public void run(){
+
+			//assign input and output variables
+			BufferedReader input = null;
+			PrintWriter output = null;
+			try {
+				input = new BufferedReader(new InputStreamReader((socket.getInputStream())));
+				output = new PrintWriter(socket.getOutputStream(), true);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			//get log information
+			//TODO: log
+			InetAddress inet = socket.getInetAddress();
+			Date date = new Date();
+
+			System.out.println("\nDate " + date.toString() );
+			System.out.println("Connection made from " + inet.getHostName() );
+
 			//initialise client input stream
 			String line = null;
 			String[] command;
 
 			while( true ) {
 				if (input != null) {
-					//get client input stream
-					BufferedReader stream = new BufferedReader(new InputStreamReader(input));
 					//process client input
 					try {
-						line = stream.readLine();
+						line = input.readLine();
 						//
 						if(!line.equals("")){
 							command = line.split(" ");
@@ -111,6 +121,7 @@ public class Server {
 								}
 								if(votesCount >= 2){
 									setVotes(votesBuffer);
+									break;
 								}
 								else{
 									System.err.println("Too few votes casts, must be a minimum of two.");
@@ -119,13 +130,14 @@ public class Server {
 							}
 							else if (command[0].equalsIgnoreCase("show")) {
 								int[] temp = getVotes();
-								String output = String.format(
+								String votes = String.format(
 										"'apple' has %d vote(s).\n" +
 										"'pear' has %d vote(s).\n" +
 										"'orange' has %d vote(s).\n",
 										temp[0], temp[1], temp[2]
 								);
-								socket.println(output);
+								output.println(votes);
+								break;
 							}
 							else {
 								System.err.println("Invalid command, did not start with vote or show.");
@@ -140,9 +152,19 @@ public class Server {
 						e.printStackTrace();
 					}
 				} else {
-					System.out.println("Could not get client input stream.");
+					System.err.println("Could not get client input stream.");
+					System.exit(-1);
 				}
 			}
+			try {
+				output.println("Connection Terminated.");
+				input.close();
+				output.close();
+				socket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 		}
 	}
 
