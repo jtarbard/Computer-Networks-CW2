@@ -56,7 +56,7 @@ public class Client {
 			while ((fromServer = input.readLine()) != null) {
 				// echo server string
 				System.out.println("Server: " + fromServer);
-				if (fromServer.equals("End of Connection")) {
+				if (fromServer.equals("End of Connection.")) {
 					break;
 				}
 			}
