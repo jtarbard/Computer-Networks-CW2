@@ -12,7 +12,7 @@ public class Client {
 	/**
 	 * main Method -
 	 * Creates a new client instance.
-	 * @param args
+	 * @param args command line arguments not expected or required.
 	 */
 	public static void main( String[] args ) {
 		Client client = new Client();
@@ -38,48 +38,47 @@ public class Client {
 
 		} catch (IOException e) {
 			System.err.println("Connection refused, is the server running?");
-			e.printStackTrace();
+			System.exit(-1);
 		}
 
 		//try assign input and output instances
 		try {
-			assert socket != null;
 			input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			output = new PrintWriter(socket.getOutputStream(), true);
 			stdInput = new BufferedReader(new InputStreamReader(System.in)); //keyboard input instance
 		} catch (IOException e){
 			System.err.println("Failed to create input/output instances.");
-			e.printStackTrace();
+			System.exit(-1);
 		}
 
 		//try to get poll information
 		try {
-			assert input != null;
 			String pollItems = input.readLine();
 			System.out.println("Poll Items for Voting: "+pollItems);
 		} catch (IOException e) {
 			System.err.println("Failed to read poll information from server.");
-			e.printStackTrace();
+			System.exit(-1);
 		}
 
 		//try to send user request to server
 		try {
-			assert stdInput != null;
 			String userLine = stdInput.readLine();
 			if( userLine != null) {
-				if(!userLine.equals("")){
+				if(!userLine.equals("") && !userLine.equals("\n")){
 					String[] command = userLine.split(" ");
 					if (command[0].equalsIgnoreCase("vote") || command[0].equalsIgnoreCase("show")) {
 						output.println(userLine); // write to server
 						System.out.println("Client: "+userLine);
 					}
 					else {
-						System.err.println("Invalid command, did not start with vote or show.");
+						System.err.println("Invalid command, did not start with vote or show. Use command 'show' to view poll or vote " +
+								"<option> to vote in the pole.");
 						System.exit(-1);
 					}
 				}
 				else {
-					System.err.println("Could not get client input stream.");
+					System.err.println("Invalid command, no command given. Use command 'show' to view poll or vote " +
+							"<option> to vote in the pole.");
 					System.exit(-1);
 				}
 			}

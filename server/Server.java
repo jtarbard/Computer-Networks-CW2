@@ -12,17 +12,16 @@ import java.util.concurrent.*;
 public class Server {
 
 	//poll variables
-	private String[] items = {};
-	private int[] votes = {};
+	private String[] items;
+	private int[] votes;
 
 	/**
 	 * Main Method -
 	 * Gets a minimum of two poll items from commandline arguments and creates an
 	 * instance of the Server class.
 	 * @param args passed as a parameter to the server instance.
-	 * @throws IOException
 	 */
-	public static void main( String[] args ) throws IOException {
+	public static void main( String[] args ) {
 		if(args.length >= 2) {
 			Server server = new Server(args);
 		}
@@ -37,10 +36,9 @@ public class Server {
 	 * Creates a socket instance on port 7777. Creates a log.txt file.
 	 * Creates an Executor instance with a fixed thread pool size of 20.
 	 * Enters a loop that accepts synchronised socket requests and calls the handler.
-	 * @param args
-	 * @throws IOException
+	 * @param args poll items given as commandline arguments at runtime.
 	 */
-	public Server(String[] args) throws IOException {
+	public Server(String[] args) {
 
 		items = args; //assign poll items to items array
 		votes = new int[items.length]; //initialise votes array
@@ -66,7 +64,7 @@ public class Server {
 			}
 		}
 		catch (IOException e) {
-			System.err.println("Could not listen on port: 2323.");
+			System.err.println("Could not listen on port: 7777.");
 			System.exit(-1);
 		}
 
@@ -75,8 +73,13 @@ public class Server {
 		//for each new client submit a new handler to the thread pool
 		while( true ) {
 			synchronized (socket){
-				Socket client = socket.accept();
-				service.submit(new Handler(client));
+				try {
+					Socket client = socket.accept();
+					service.submit(new Handler(client));
+				} catch(IOException e){
+					System.err.println("Failed to accept socket request.");
+					System.exit(-1);
+				}
 			}
 		}
 	}
@@ -116,7 +119,7 @@ public class Server {
 	class Handler extends Thread {
 
 		//client socket variable
-		private Socket socket = null;
+		private Socket socket;
 
 		/**
 		 * Handler Constructor -
@@ -142,7 +145,8 @@ public class Server {
 				input = new BufferedReader(new InputStreamReader((socket.getInputStream())));
 				output = new PrintWriter(socket.getOutputStream(), true);
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.err.println("Could not create input/output instances.");
+				System.exit(-1);
 			}
 
 			//add connection to log
@@ -152,10 +156,11 @@ public class Server {
 				InetAddress inet = socket.getInetAddress();
 				Date date = new Date();
 
-				log.append(date.toString() + ":"); //log date
-				log.append(inet.getHostName() + ":"); //log ip address
+				log.append(date.toString()).append(":"); //log date
+				log.append(inet.getHostName()).append(":"); //log ip address
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.err.println("Could not write to log file.");
+				System.exit(-1);
 			}
 
 			//inform client of poll information
@@ -168,7 +173,6 @@ public class Server {
 				}
 				else{
 					pollItems = pollItems.concat(".");
-
 				}
 			}
 			output.println(pollItems);
@@ -176,72 +180,71 @@ public class Server {
 			//declare while scope variables
 			String line = null;
 			String[] request;
-			Boolean validOption;
+			boolean validOption;
 
-			badOption: //break point for bad vote option
 			//loop until input processed
-			while (true) {
-				if (input != null) {
 
-					//try to read input
-					try {
-						line = input.readLine(); //read first line of input
-						request = line.split(" "); //spilt line into an array of words
+				//try to read input
+				try {
+					line = input.readLine(); //read first line of input
+					request = line.split(" "); //spilt line into an array of words
 
-						int[] newVotes; //array for holding new votes made by client
-						newVotes = new int[items.length]; //initialise array to match number of item
+					System.out.println("Request received: '"+line+"'"); //print request to console
 
-						//process client request
-						if (request[0].equalsIgnoreCase("vote")) {
-							for (String word : request) {
-								validOption = false; //reset option validity check
-								for (int i = 0; i < items.length; i++) {
-									if (word.equalsIgnoreCase(items[i])) {
-										newVotes[i] = newVotes[i] + 1; //add 1 newVotes array
-										validOption = true; //mark option as valid
-									}
-									else if(word.equalsIgnoreCase("vote")){
-										validOption = true;
-									}
+					int[] newVotes; //array for holding new votes made by client
+					newVotes = new int[items.length]; //initialise array to match number of item
+
+					//process client request
+					if (request[0].equalsIgnoreCase("vote")) {
+						for (String word : request) {
+							validOption = false; //reset option validity check
+							for (int i = 0; i < items.length; i++) {
+								if (word.equalsIgnoreCase(items[i])) {
+									newVotes[i] = newVotes[i] + 1; //add 1 to newVotes array
+									validOption = true; //mark option as valid
 								}
-
-								//if option invalid return error
-								if(!validOption){
-									output.println("Error - '"+word+"' is not an item. No vote made.");
-									break badOption;
+								else if(word.equalsIgnoreCase("vote")){
+									validOption = true;
 								}
 							}
 
-							//update vote count
-							setVotes(newVotes);
+							//if option invalid return error
+							if(!validOption){
+								output.println("Error - '"+word+"' is not an item. No vote made.");
+								break;
+							}
 						}
 
-						//print poll status
-						int[] votes = getVotes();
-						output.println("Poll Count:");
-						for (int i = 0; i < votes.length; i++) {
-							output.println("'" + items[i] + "' has " + votes[i] + " votes(s)."); //print items vote count
-						}
-						break;
-
-					} catch (IOException e) {
-						e.printStackTrace();
+						//update vote count
+						setVotes(newVotes);
 					}
+
+					//print poll status
+					int[] votes = getVotes();
+					output.println("Poll Count:");
+					for (int i = 0; i < votes.length; i++) {
+						output.println("'" + items[i] + "' has " + votes[i] + " votes(s)."); //print items vote count
+					}
+
+
+				} catch (IOException e) {
+					System.err.println("Could not read client input.");
+					System.exit(-1);
 				}
-			}
 
 			//send end connection signal
 			output.println("End of Connection.");
 
 			//try to close log, input/output instances and client socket
 			try {
-				log.append(line + "\r\n"); //log request
+				log.append(line).append("\r\n"); //log request
 				log.close();
 				input.close();
 				output.close();
 				socket.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.err.println("Could not close log, input/output instances or socket.");
+				System.exit(-1);
 			}
 		}
 	}

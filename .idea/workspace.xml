@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="eb356665-fe63-4a6f-b8b2-6b303eb0191c" name="Default Changelist" comment="">
+    <list default="true" id="eb356665-fe63-4a6f-b8b2-6b303eb0191c" name="Default Changelist" comment="Small amendments to code and comments">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Coursework2/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Coursework2/Client.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Coursework2/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Coursework2/Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +33,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="project.propCompiler" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RunManager" selected="Application.Client">
     <configuration name="Client" type="Application" factoryName="Application" singleton="false">
@@ -44,7 +46,7 @@
     <configuration name="Server" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Server" />
       <module name="Coursework2" />
-      <option name="PROGRAM_PARAMETERS" value="apple pear orange lemon" />
+      <option name="PROGRAM_PARAMETERS" value="Red Orange Blue Green Yellow" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -69,7 +71,7 @@
       <workItem from="1585435607797" duration="1292000" />
       <workItem from="1585436980854" duration="604000" />
       <workItem from="1585437660058" duration="18838000" />
-      <workItem from="1585495476228" duration="9019000" />
+      <workItem from="1585495476228" duration="15522000" />
     </task>
     <task id="LOCAL-00001" summary="Added base client code, single connection works.">
       <created>1585444115084</created>
@@ -120,7 +122,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585502726536</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Refactored client code. Wrote java doc comments for client.">
+      <created>1585512037700</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1585512037700</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,13 +143,15 @@
     <MESSAGE value="Added file logging." />
     <MESSAGE value="Fix incorrect behaviour where votes where limited to a minimum of two instead of the server being called with a minimum of two arguments. Refactored server file and added java doc comments to server file." />
     <MESSAGE value="Improved server comments." />
-    <option name="LAST_COMMIT_MESSAGE" value="Improved server comments." />
+    <MESSAGE value="Refactored client code. Wrote java doc comments for client." />
+    <MESSAGE value="Small amendments to code and comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="Small amendments to code and comments" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="694" y="109" width="1162" height="825" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585498496488">
+    <state x="694" y="109" width="1162" height="825" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585512667213">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state x="694" y="109" width="1162" height="825" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.35.1920.1003@0.35.1920.1003" timestamp="1585498496488" />
+    <state x="694" y="109" width="1162" height="825" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.35.1920.1003@0.35.1920.1003" timestamp="1585512667213" />
     <state x="721" y="180" width="468" height="719" key="#com.intellij.ide.util.MemberChooser" timestamp="1585444856529">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
@@ -149,54 +160,54 @@
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
     <state x="1006" y="343" width="656" height="520" key="#com.intellij.ide.util.TreeClassChooserDialog/0.35.1920.1003@0.35.1920.1003" timestamp="1585443489807" />
-    <state x="866" y="35" width="1044" height="1003" key="CommitChangelistDialog2" timestamp="1585502726396">
+    <state x="866" y="35" width="1044" height="1003" key="CommitChangelistDialog2" timestamp="1585518544368">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state x="866" y="35" width="1044" height="1003" key="CommitChangelistDialog2/0.35.1920.1003@0.35.1920.1003" timestamp="1585502726396" />
+    <state x="866" y="35" width="1044" height="1003" key="CommitChangelistDialog2/0.35.1920.1003@0.35.1920.1003" timestamp="1585518544368" />
     <state x="685" y="237" width="530" height="605" key="FileChooserDialogImpl" timestamp="1585436719774">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
     <state x="685" y="237" width="530" height="605" key="FileChooserDialogImpl/0.35.1920.1003@0.35.1920.1003" timestamp="1585436719774" />
-    <state width="1862" height="440" key="GridCell.Tab.0.bottom" timestamp="1585504022306">
+    <state width="1862" height="271" key="GridCell.Tab.0.bottom" timestamp="1585518544389">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state width="1862" height="440" key="GridCell.Tab.0.bottom/0.35.1920.1003@0.35.1920.1003" timestamp="1585504022306" />
-    <state width="1862" height="440" key="GridCell.Tab.0.center" timestamp="1585504022305">
+    <state width="1862" height="271" key="GridCell.Tab.0.bottom/0.35.1920.1003@0.35.1920.1003" timestamp="1585518544389" />
+    <state width="1862" height="271" key="GridCell.Tab.0.center" timestamp="1585518544388">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state width="1862" height="440" key="GridCell.Tab.0.center/0.35.1920.1003@0.35.1920.1003" timestamp="1585504022305" />
-    <state width="1862" height="440" key="GridCell.Tab.0.left" timestamp="1585504022305">
+    <state width="1862" height="271" key="GridCell.Tab.0.center/0.35.1920.1003@0.35.1920.1003" timestamp="1585518544388" />
+    <state width="1862" height="271" key="GridCell.Tab.0.left" timestamp="1585518544388">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state width="1862" height="440" key="GridCell.Tab.0.left/0.35.1920.1003@0.35.1920.1003" timestamp="1585504022305" />
-    <state width="1862" height="440" key="GridCell.Tab.0.right" timestamp="1585504022306">
+    <state width="1862" height="271" key="GridCell.Tab.0.left/0.35.1920.1003@0.35.1920.1003" timestamp="1585518544388" />
+    <state width="1862" height="271" key="GridCell.Tab.0.right" timestamp="1585518544388">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state width="1862" height="440" key="GridCell.Tab.0.right/0.35.1920.1003@0.35.1920.1003" timestamp="1585504022306" />
-    <state width="1862" height="440" key="GridCell.Tab.1.bottom" timestamp="1585504022307">
+    <state width="1862" height="271" key="GridCell.Tab.0.right/0.35.1920.1003@0.35.1920.1003" timestamp="1585518544388" />
+    <state width="1862" height="271" key="GridCell.Tab.1.bottom" timestamp="1585518544391">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state width="1862" height="440" key="GridCell.Tab.1.bottom/0.35.1920.1003@0.35.1920.1003" timestamp="1585504022307" />
-    <state width="1862" height="440" key="GridCell.Tab.1.center" timestamp="1585504022306">
+    <state width="1862" height="271" key="GridCell.Tab.1.bottom/0.35.1920.1003@0.35.1920.1003" timestamp="1585518544391" />
+    <state width="1862" height="271" key="GridCell.Tab.1.center" timestamp="1585518544389">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state width="1862" height="440" key="GridCell.Tab.1.center/0.35.1920.1003@0.35.1920.1003" timestamp="1585504022306" />
-    <state width="1862" height="440" key="GridCell.Tab.1.left" timestamp="1585504022306">
+    <state width="1862" height="271" key="GridCell.Tab.1.center/0.35.1920.1003@0.35.1920.1003" timestamp="1585518544389" />
+    <state width="1862" height="271" key="GridCell.Tab.1.left" timestamp="1585518544389">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state width="1862" height="440" key="GridCell.Tab.1.left/0.35.1920.1003@0.35.1920.1003" timestamp="1585504022306" />
-    <state width="1862" height="440" key="GridCell.Tab.1.right" timestamp="1585504022306">
+    <state width="1862" height="271" key="GridCell.Tab.1.left/0.35.1920.1003@0.35.1920.1003" timestamp="1585518544389" />
+    <state width="1862" height="271" key="GridCell.Tab.1.right" timestamp="1585518544391">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state width="1862" height="440" key="GridCell.Tab.1.right/0.35.1920.1003@0.35.1920.1003" timestamp="1585504022306" />
-    <state x="333" y="84" width="1254" height="912" key="SettingsEditor" timestamp="1585437531104">
+    <state width="1862" height="271" key="GridCell.Tab.1.right/0.35.1920.1003@0.35.1920.1003" timestamp="1585518544391" />
+    <state x="333" y="84" width="1254" height="912" key="SettingsEditor" timestamp="1585516254473">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state x="333" y="84" width="1254" height="912" key="SettingsEditor/0.35.1920.1003@0.35.1920.1003" timestamp="1585437531104" />
-    <state x="455" y="209" width="1000" height="661" key="Vcs.Push.Dialog.v2" timestamp="1585502728676">
+    <state x="333" y="84" width="1254" height="912" key="SettingsEditor/0.35.1920.1003@0.35.1920.1003" timestamp="1585516254473" />
+    <state x="455" y="209" width="1000" height="661" key="Vcs.Push.Dialog.v2" timestamp="1585512039356">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
-    <state x="455" y="209" width="1000" height="661" key="Vcs.Push.Dialog.v2/0.35.1920.1003@0.35.1920.1003" timestamp="1585502728676" />
+    <state x="455" y="209" width="1000" height="661" key="Vcs.Push.Dialog.v2/0.35.1920.1003@0.35.1920.1003" timestamp="1585512039356" />
     <state x="134" y="35" width="1642" height="1003" key="new project wizard" timestamp="1585436896950">
       <screen x="0" y="35" width="1920" height="1003" />
     </state>
