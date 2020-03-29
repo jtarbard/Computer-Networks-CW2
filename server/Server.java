@@ -40,16 +40,12 @@ public class Server {
 	}
 
 	public void setVotes(int[] newVotes){
-		//todo: remove print
-		System.out.println("'apples' " +newVotes[0]+", 'pears' "+newVotes[1]+", 'oranges' "+newVotes[2]);
 		for(int i = 0; i < votes.length; i++){
 			votes[i] = votes[i] + newVotes[i];
 		}
 	}
 
 	public int[] getVotes(){
-		//todo: remove print
-		System.out.println("'apples' " +votes[0]+", 'pears' "+votes[1]+", 'oranges' "+votes[2]);
 		return votes;
 	}
 
@@ -63,9 +59,9 @@ public class Server {
 			this.socket = client;
 		}
 
-		public void run(){
+		public void run() {
 
-			//assign input and output variables
+			//assign input and output instances
 			BufferedReader input = null;
 			PrintWriter output = null;
 			try {
@@ -80,91 +76,81 @@ public class Server {
 			InetAddress inet = socket.getInetAddress();
 			Date date = new Date();
 
-			System.out.println("\nDate " + date.toString() );
-			System.out.println("Connection made from " + inet.getHostName() );
+			System.out.println("\nDate " + date.toString());
+			System.out.println("Connection made from " + inet.getHostName());;
 
 			//initialise client input stream
 			String line = null;
 			String[] command;
 
-			while( true ) {
+			while (true) {
 				if (input != null) {
 					//process client input
 					try {
 						line = input.readLine();
+						System.out.println("Command: "+line); //log command
 						//
-						if(!line.equals("")){
-							command = line.split(" ");
-							int votesCount = 0;
-							int[] votesBuffer = {0, 0, 0}; //apple, pear, orange
-							if (command[0].equalsIgnoreCase("vote")) {
-								for(String word : command){
-									if(word.equalsIgnoreCase("apple")){
-										votesBuffer[0] = votesBuffer[0] + 1;
-										votesCount++;
-									}
-									else if(word.equalsIgnoreCase("pear")){
-										votesBuffer[1] = votesBuffer[1] + 1;
-										votesCount++;
-									}
-									else if(word.equalsIgnoreCase("orange")){
-										votesBuffer[2] = votesBuffer[2] + 1;
-										votesCount++;
-									}
-									else if(word.equalsIgnoreCase("vote")){
-										//do nothing
-									}
-									else {
-										System.err.println("Unidentifiable word '"+word+"' in command.");
-										System.exit(-1);
-									}
-								}
-								if(votesCount >= 2){
-									setVotes(votesBuffer);
-									break;
-								}
-								else{
-									System.err.println("Too few votes casts, must be a minimum of two.");
+						command = line.split(" ");
+						int votesCount = 0;
+						int[] votesBuffer = {0, 0, 0}; //apple, pear, orange
+						if (command[0].equalsIgnoreCase("vote")) {
+							for (String word : command) {
+								if (word.equalsIgnoreCase("apple")) {
+									votesBuffer[0] = votesBuffer[0] + 1;
+									votesCount++;
+								} else if (word.equalsIgnoreCase("pear")) {
+									votesBuffer[1] = votesBuffer[1] + 1;
+									votesCount++;
+								} else if (word.equalsIgnoreCase("orange")) {
+									votesBuffer[2] = votesBuffer[2] + 1;
+									votesCount++;
+								} else if (word.equalsIgnoreCase("vote")) {
+									//do nothing
+								} else {
+									System.err.println("Unidentifiable word '" + word + "' in command.");
 									System.exit(-1);
 								}
 							}
-							else if (command[0].equalsIgnoreCase("show")) {
+							if (votesCount >= 2) {
+								setVotes(votesBuffer);
 								int[] temp = getVotes();
 								String votes = String.format(
 										"'apple' has %d vote(s).\n" +
-										"'pear' has %d vote(s).\n" +
-										"'orange' has %d vote(s).\n",
+												"'pear' has %d vote(s).\n" +
+												"'orange' has %d vote(s).",
 										temp[0], temp[1], temp[2]
 								);
 								output.println(votes);
 								break;
-							}
-							else {
-								System.err.println("Invalid command, did not start with vote or show.");
+							} else {
+								System.err.println("Too few votes casts, must be a minimum of two.");
 								System.exit(-1);
 							}
-						}
-						else{
-							System.err.println("Input is empty.");
-							System.exit(-1);
+						} else {
+							int[] temp = getVotes();
+							String votes = String.format(
+									"'apple' has %d vote(s).\n" +
+											"'pear' has %d vote(s).\n" +
+											"'orange' has %d vote(s).",
+									temp[0], temp[1], temp[2]
+							);
+							output.println(votes);
+							break;
 						}
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-				} else {
-					System.err.println("Could not get client input stream.");
-					System.exit(-1);
 				}
+
 			}
+			output.println("End of Connection");
 			try {
-				output.println("Connection Terminated.");
 				input.close();
 				output.close();
 				socket.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
 		}
 	}
 
