@@ -36,6 +36,7 @@ class handler implements Runnable {
 	InputStream input = null;
 
 	public handler(Socket client) {
+		System.out.println("In handler");
 		try {
 			input = client.getInputStream();
 
@@ -46,21 +47,23 @@ class handler implements Runnable {
 	}
 
 	public void run(){
+		System.out.println("In run");
+
 		String line = null;
 
-		if (input != null){
-			BufferedReader stream = new BufferedReader(new InputStreamReader(input));
-			try {
-
-				while ((line = stream.readLine()) != null) {
-					System.out.println(line);
+		while( true ) {
+			if (input != null) {
+				BufferedReader stream = new BufferedReader(new InputStreamReader(input));
+				try {
+					while ((line = stream.readLine()) != null) {
+						System.out.println(line);
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-			} catch (IOException e) {
-				e.printStackTrace();
+			} else {
+				System.out.println("Could not get client input stream.");
 			}
-		}
-		else {
-			System.out.println("Could not get client input stream.");
 		}
 	}
 }
